@@ -32,7 +32,6 @@ Scope {
             StyledRect {
                 color: Appearance.m3colors.m3background
                 anchors.fill: parent
-                radius: Config.options.bar.radius 
 
                 MouseArea {
                     id: hoverArea
