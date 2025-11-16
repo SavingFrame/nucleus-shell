@@ -12,6 +12,12 @@ ContentMenu {
     title: "Wallpaper"
     description: "Manage your wallpapers"
 
+    component Anim: NumberAnimation {
+        duration: 400
+        easing.type: Easing.BezierSpline
+        easing.bezierCurve: Appearance.animation.curves.standard
+    }
+
     ContentCard {
         StyledText {
             text: "Current Wallpaper:"
@@ -34,7 +40,17 @@ ContentMenu {
                     radius: wpPreview.radius
                 }
             }
+
+            StyledText {
+                opacity: !Config.options.background.wallpaperEnabled ? 1 : 0
+                Behavior on opacity { Anim {} }
+                font.pixelSize: Appearance.font.size.title
+                text: "Wallpaper Manager Disabled"
+                anchors.centerIn: parent
+            }
             Image {
+                opacity: Config.options.background.wallpaperEnabled ? 1 : 0
+                Behavior on opacity { Anim {} }
                 anchors.fill: parent
                 source: Config.options.background.wallpaperPath
                 fillMode: Image.PreserveAspectCrop
@@ -51,8 +67,8 @@ ContentMenu {
         }
 
         StyledSwitchOption {
-            title: "Visible";
-            description: "Change wallpaper's visiblity."
+            title: "Enabled";
+            description: "Enabled or disable Aelyx wallpaper manager."
             prefField: "background.wallpaperEnabled"
         }
     }

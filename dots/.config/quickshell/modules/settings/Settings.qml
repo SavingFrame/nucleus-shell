@@ -45,9 +45,10 @@ Scope {
                 // header
                 { header: true, label: "Customization" },
                 { icon: "contrast", label: "Appearance", page: 0 },
-                //{ icon: "wallpaper", label: "Wallpaper", page: 1},
                 { icon: "widgets", label: "Bar", page: 1},
-                { icon: "wallpaper", label: "Wallpapers", page: 2}
+                { icon: "wallpaper", label: "Wallpapers", page: 2},
+                { header: true, label: "Configuration" },
+                { icon: "info", label: "About", page: 3},
             ]
 
             Component.onCompleted: settingsWindow = root
@@ -194,9 +195,9 @@ Scope {
                     currentIndex: root.selectedIndex
                     
                     AppearanceConfig { }
-                    //WallpaperConfig { }
                     BarConfig { }
                     WallpaperConfig { }
+                    AboutMenu { }
                 }
             }
         }
