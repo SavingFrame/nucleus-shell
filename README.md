@@ -2,8 +2,6 @@
 
 <img src="assets/aelyx-logo.png" width="550" height="380" />
 
-A compact, performance-oriented dotfiles collection implemented with QuickShell and Hyprland.
-
 <p>
   <img src="https://img.shields.io/github/last-commit/xZepyx/aelyx-shell?style=for-the-badge&color=8ad7eb&logo=git&logoColor=D9E0EE&labelColor=1E202B" alt="Last Commit" />
   &nbsp;
