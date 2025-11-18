@@ -6,6 +6,8 @@ import Quickshell.Io
 import Quickshell.Hyprland
 import QtQuick
 
+// from github.com/end-4/dots-hyprland
+
 Singleton {
     id: root
     signal brightnessChanged()

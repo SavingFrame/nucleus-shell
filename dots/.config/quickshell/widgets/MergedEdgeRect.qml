@@ -9,6 +9,8 @@ import QtQuick.Layouts
 import QtQuick
 import QtQuick.Shapes
 
+// From github.com/yannpelletier/twinshell with modifications.
+
 Item {
   id: root
 

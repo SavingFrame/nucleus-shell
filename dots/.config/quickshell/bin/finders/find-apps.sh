@@ -1,6 +1,6 @@
 #!/bin/bash
 # List desktop applications for the launcher
-
+# from github.com/bgibson72/yahr-quickshell with modifications
 # Blacklist - apps to hide (add desktop file basenames here)
 BLACKLIST=(
     "xfce4-about.desktop"

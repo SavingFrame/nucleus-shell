@@ -4,6 +4,8 @@ import Quickshell.Io
 import Quickshell.Services.Pipewire
 import QtQuick
 
+// combined service from github.com/yannpelletier/twinshell and github.com/end-4/dots-hyprland
+
 Singleton {
     id: root
 

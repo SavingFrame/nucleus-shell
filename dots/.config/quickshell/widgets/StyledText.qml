@@ -5,6 +5,8 @@ import QtQuick
 Text {
   id: root
 
+  // from github.com/yannpelletier/twinshell with modifications
+
   property bool animate: true
   property string animateProp: "scale"
   property real animateFrom: 0

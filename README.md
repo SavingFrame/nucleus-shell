@@ -150,4 +150,4 @@ Refer to GITHUB CONTRIBUTING for details.
 ## License
 
 © 2025 xZepyx (Aditya Yadav) 
-Licensed under GNU GPLv3.
+Licensed under MIT LICENSE.

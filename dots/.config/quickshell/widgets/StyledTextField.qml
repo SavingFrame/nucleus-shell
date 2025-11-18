@@ -9,6 +9,8 @@ TextField {
   font.family: Appearance.font.family.main
   color: Appearance.syntaxHighlightingTheme
 
+  // from github.com/yannpelletier/twinshell with modifications
+
   cursorDelegate: StyledRect {
     id: cursor
 

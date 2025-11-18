@@ -6,6 +6,8 @@ import Quickshell.Io
 import Quickshell.Services.Notifications
 import QtQuick
 
+// from github.com/end-4/dots-hyprland with modifications
+
 Singleton {
     id: root
 

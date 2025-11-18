@@ -7,6 +7,8 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Effects
 
+// from github.com/yannpelletier/twinshell with modifications
+
 PanelWindow {
   id: root
 
