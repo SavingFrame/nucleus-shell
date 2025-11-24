@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.modules.bar
 import qs.widgets
 import qs.services
@@ -9,8 +9,7 @@ import QtQuick.Layouts
 
 BarModule {
     id: root
-    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-    Layout.rightMargin: Appearance.margin.normal
+    Layout.alignment: Qt.AlignVCenter
 
     // let layout compute size
     implicitWidth: bgRect.implicitWidth
@@ -19,7 +18,7 @@ BarModule {
     StyledRect {
         id: bgRect
         color: Appearance.m3colors.m3paddingContainer
-        radius: Appearance.rounding.large
+        radius: Shell.flags.bar.moduleRadius
 
         implicitWidth: contentRow.implicitWidth + Appearance.margin.large - 5
         implicitHeight: contentRow.implicitHeight + Appearance.margin.small - 5
@@ -56,7 +55,7 @@ BarModule {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                SessionState.controlCenterOpen = !SessionState.controlCenterOpen
+                GlobalStates.controlCenterOpen = !GlobalStates.controlCenterOpen
             }
         }
     }

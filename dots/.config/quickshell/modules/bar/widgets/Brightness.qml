@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.modules.bar
 import qs.services
 import qs.widgets
@@ -16,10 +16,10 @@ BarModule {
     Rectangle {
         id: bgRect
         color: "transparent"
-        radius: Appearance.rounding.small
+        radius: Shell.flags.bar.moduleRadius
 
         implicitWidth: Appearance.margin.large
-        implicitHeight: Config.options.bar.implicitHeight
+        implicitHeight: Shell.flags.bar.height
 
         // --- Scroll to change brightness ---
         MouseArea {
@@ -28,7 +28,7 @@ BarModule {
             scrollGestureEnabled: true
 
             onWheel: (wheelEvent) => {
-                SessionState.osdNeeded = true;
+                GlobalStates.osdNeeded = true;
                 const step = 0.05
                 if (wheelEvent.angleDelta.y > 0) {
                     Brightness.increaseBrightness()

@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland

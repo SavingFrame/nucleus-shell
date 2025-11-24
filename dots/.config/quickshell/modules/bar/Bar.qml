@@ -1,91 +1,53 @@
-import qs.config
 import qs.widgets
+import qs.settings
 import qs.modules.bar.widgets
-import qs.modules.bar.extras
+import Quickshell 
+import Quickshell.Wayland
 import QtQuick
-import Quickshell
-import QtQuick.Layouts
 
 Scope {
-    id: root
-
+    id: root 
     Variants {
-        model: Quickshell.screens
-
-        PanelWindow {
-            id: bar
-            visible: (Config.options.bar.enabled && Config.ready)
+        model: Quickshell.screens 
+        
+        StaticWindow {
             required property var modelData
-
-            color: "transparent"
             screen: modelData
-            implicitHeight: Config.options.bar.implicitHeight
+            id: barWindow 
+            namespace: "aelyx:bar"
+            visible: Shell.flags.bar.enabled
+            implicitHeight: Shell.flags.bar.height
+            implicitWidth: screen.width
 
             anchors {
-                top: Config.options.bar.position === 1
-                bottom: Config.options.bar.position === 2
-                left: true
+                top: Shell.flags.bar.atTop
+                bottom: !Shell.flags.bar.atTop
+                left: true 
                 right: true
             }
 
+            margins {
+                top: Shell.flags.bar.floating ? 10 : 0
+                bottom: Shell.flags.bar.floating ? 10 : 0
+                left: Shell.flags.bar.floating ? 10 : 0
+                right: Shell.flags.bar.floating ? 10 : 0
+            }
+
             StyledRect {
-                color: Appearance.m3colors.m3background
                 anchors.fill: parent
+                radius: Shell.flags.bar.floating ? Shell.flags.bar.radius : 0
+                color: Appearance.m3colors.m3background
+                opacity: Shell.flags.bar.floatingModules ? 0 : 1.0
 
-                MouseArea {
-                    id: hoverArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    enabled: Config.options.bar.autohide
-
-                    onEntered: bar.implicitHeight = Config.options.bar.implicitHeight
-                    onExited: bar.implicitHeight = 0
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 200
+                    }
                 }
+            }
 
-                Binding {
-                    target: bar
-                    property: "implicitHeight"
-                    when: !Config.options.bar.autohide
-                    value: Config.options.bar.implicitHeight
-                }
-
-                Row {
-                    id: centerRow
-                    anchors.centerIn: parent
-                    spacing: 4
-
-                    LauncherToggle {}
-                    Workspaces {}
-                    UserHostname {}
-                    Network {}
-                    PowerMenuToggle {}
-                }
-
-                RowLayout {
-                    id: rightRow
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.right
-                    spacing: 8
-
-                    SystemTray {}
-                    Media {}
-                    BluetoothWifi {}
-                }
-
-                RowLayout {
-                    id: leftRow
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    spacing: 8
-
-                    ActiveTopLevel {}
-                    Clock {}
-                }
-
-                Volume {}
-                Brightness {}
-                MediaPlayer {}
-                WindowOverview {}
+            BarContent {
+                anchors.fill: parent
             }
         }
     }

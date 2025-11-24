@@ -1,6 +1,6 @@
 import qs.widgets
 import qs.modules.bar
-import qs.config
+import qs.settings
 import Quickshell.Services.SystemTray
 import QtQuick
 import Quickshell
@@ -10,28 +10,19 @@ import QtQuick.Layouts
 BarModule {
     id: root
     readonly property Repeater items: items
-    property bool verticalMode: false
-    anchors.horizontalCenter: verticalMode ? parent.horizontalCenter : undefined
 
     clip: true
-    visible: true
     implicitWidth: padding.width
+    visible: items.count > 0 && Shell.flags.bar.modules.systemTray.enabled
     implicitHeight: padding.height
 
     Rectangle {
-    opacity: (items.count > 0) ? 1 : 0
-        Behavior on opacity {
-            NumberAnimation {
-                    duration: 400
-                    easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Appearance.animation.curves.standard
-            }
-        }
+        visible: (items.count > 0) ? 1 : 0
         id: padding
         width: layout.width + Appearance.margin.verylarge
         height: 34
         anchors.fill: parent
-        radius: Appearance.rounding.large
+        radius: Shell.flags.bar.moduleRadius
         color: Appearance.m3colors.m3paddingContainer
     }
 

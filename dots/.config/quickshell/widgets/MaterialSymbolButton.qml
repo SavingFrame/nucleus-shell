@@ -1,5 +1,5 @@
+import qs.settings
 import QtQuick
-import qs.config
 
 MaterialSymbol {
     id: root

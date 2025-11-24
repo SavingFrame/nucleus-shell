@@ -1,4 +1,4 @@
-import qs.config 
+import qs.settings
 import qs.widgets
 import qs.services
 import QtQuick
@@ -11,8 +11,8 @@ import Quickshell.Io
 PanelWindow {
     id: launcher
     WlrLayershell.layer: WlrLayer.Top
-    WlrLayershell.keyboardFocus: SessionState.launcherOpen
-    visible: Config.ready
+    WlrLayershell.keyboardFocus: GlobalStates.launcherOpen
+    visible: Shell.ready
 
     color: "transparent"
     focusable: true
@@ -45,7 +45,7 @@ PanelWindow {
 
     mask: Region {
         item: overlay
-        intersection: SessionState.launcherOpen ? Intersection.Combine : Intersection.Xor
+        intersection: GlobalStates.launcherOpen ? Intersection.Combine : Intersection.Xor
     }
 
     Rectangle {
@@ -57,10 +57,10 @@ PanelWindow {
 
         MouseArea {
             anchors.fill: parent
-            enabled: SessionState.launcherOpen
+            enabled: GlobalStates.launcherOpen
             onClicked: {
                 container.searchQuery = ""
-                SessionState.launcherOpen = false
+                GlobalStates.launcherOpen = false
             }
         }
     }
@@ -70,9 +70,9 @@ PanelWindow {
         visible: implicitHeight > 0
         color: Appearance.m3colors.m3background
         cornerRadius: Appearance.rounding.verylarge
-        implicitWidth: SessionState.launcherOpen ? launcher.launcherWidth : 0
-        implicitHeight: SessionState.launcherOpen ? launcher.launcherHeight : 0
-        opacity: SessionState.launcherOpen ? 1 : 0
+        implicitWidth: GlobalStates.launcherOpen ? launcher.launcherWidth : 0
+        implicitHeight: GlobalStates.launcherOpen ? launcher.launcherHeight : 0
+        opacity: GlobalStates.launcherOpen ? 1 : 0
 
         Behavior on implicitHeight { Anim {} }
         Behavior on implicitWidth { Anim {} }
@@ -80,8 +80,6 @@ PanelWindow {
 
         anchors {
             horizontalCenter: parent.horizontalCenter
-            bottomMargin: (Config.options.bar.style === 2 ? 14 : 0) 
-            topMargin: (Config.options.bar.style === 2 ? 14 : 0)
             verticalCenter: parent.verticalCenter
         }
 
@@ -93,7 +91,7 @@ PanelWindow {
 
 
     function toggleLauncher() {
-        SessionState.launcherOpen = !SessionState.launcherOpen
+        GlobalStates.launcherOpen = !GlobalStates.launcherOpen
     }
 
     IpcHandler {

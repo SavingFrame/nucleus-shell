@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.modules.bar
 import qs.services
 import qs.widgets
@@ -9,15 +9,14 @@ import Quickshell
 BarModule {
     id: root
     height: 33
-    Layout.alignment: Qt.AlignCenter | Qt.AlignVCenter
+    Layout.alignment: Qt.AlignVCenter
 
     // Wrap everything in a background rectangle that sizes to content
     Rectangle {
         id: bgRect
         color: Appearance.m3colors.m3paddingContainer
-        radius: Appearance.rounding.normal
+        radius: Shell.flags.bar.moduleRadius
         anchors.fill: parent
-        anchors.margins: 0
 
         implicitWidth: contentRow.implicitWidth + Appearance.margin.large 
         implicitHeight: contentRow.implicitHeight + Appearance.margin.large
@@ -60,6 +59,6 @@ BarModule {
         }
     }
 
-    implicitWidth: bgRect.implicitWidth
-    implicitHeight: bgRect.implicitHeight
+    implicitWidth: bgRect.implicitWidth 
+    implicitHeight: bgRect.implicitHeight - 10
 }

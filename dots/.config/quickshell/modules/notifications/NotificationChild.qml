@@ -1,11 +1,11 @@
+import qs.settings 
+import qs.widgets
+import qs.services
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Wayland
-import qs.config 
-import qs.widgets
-import qs.services
 
 Rectangle {
     id: root

@@ -1,5 +1,5 @@
-import qs.config
 import qs.services
+import qs.settings
 import qs.widgets
 import QtQuick
 import Quickshell
@@ -14,7 +14,7 @@ Scope {
             required property var modelData
             id: clock
             color: "transparent"
-            visible: (Config.options.background.showClock && Config.ready)
+            visible: (Shell.flags.background.showClock && Shell.ready)
             exclusiveZone: 0
             WlrLayershell.layer: WlrLayer.Bottom
             screen: modelData
@@ -25,8 +25,8 @@ Scope {
             property int borderLimit: 50
 
             // Load last saved position
-            property int savedX: Config.options.background.clockX
-            property int savedY: Config.options.background.clockY
+            property int savedX: Shell.flags.background.clockX
+            property int savedY: Shell.flags.background.clockY
 
             // margins now synced to both axes equally
             anchors {
@@ -54,8 +54,8 @@ Scope {
             }
 
             function savePosition() {
-                Config.setNestedValue("background.clockX", margins.left)
-                Config.setNestedValue("background.clockY", margins.top)
+                Shell.setNestedValue("background.clockX", margins.left)
+                Shell.setNestedValue("background.clockY", margins.top)
             }
 
             function moveRandomly() {
@@ -81,7 +81,7 @@ Scope {
                 id: textItem
                 anchors.centerIn: parent
                 animate: false
-                text: Time.format(Config.options.background.clockTimeFormat)
+                text: Time.format(Shell.flags.background.clockTimeFormat)
                 font.pixelSize: Appearance.font.size.wildass * 2
                 font.family: Appearance.font.family.main
                 font.bold: true

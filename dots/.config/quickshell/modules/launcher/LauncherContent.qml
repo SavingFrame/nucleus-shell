@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.services
 import QtQuick
@@ -10,7 +10,7 @@ import Quickshell.Io
 Item {
     id: content
     anchors.fill: parent
-    opacity: SessionState.launcherOpen ? 1 : 0
+    opacity: GlobalStates.launcherOpen ? 1 : 0
     Behavior on opacity {
         NumberAnimation {
             duration: 400
@@ -27,7 +27,7 @@ Item {
 
     Process {
         id: appLoader
-        command: ["bash", "-c", "bash \"$HOME/.config/quickshell/bin/finders/find-apps.sh\""]
+        command: ["bash", "-c", "bash \"$HOME/.local/share/aelyx/scripts/finders/find-apps.sh\""]
         stdout: SplitParser {
             onRead: data => {
                 const lines = data.split("\n")
@@ -97,7 +97,7 @@ Item {
     }
 
     function closeLauncher() {
-        SessionState.launcherOpen = false
+        GlobalStates.launcherOpen = false
     }
 
     function resetSearch() {
@@ -111,7 +111,7 @@ Item {
     Component.onCompleted: reloadApps()
 
     onVisibleChanged: {
-        if (SessionState.launcherOpen) {
+        if (GlobalStates.launcherOpen) {
             Qt.callLater(() => {
                 resetSearch()
                 searchField.forceActiveFocus()
@@ -250,7 +250,7 @@ Item {
                             sourceSize.height: 128
                             source: model.icon && model.icon.startsWith("/")
                                 ? model.icon
-                                : Config.options.appearance.defaultAppIcon
+                                : ""
                         }
 
                         Column {

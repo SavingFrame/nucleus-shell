@@ -1,29 +1,22 @@
-import qs.bin
+import qs.settings
 import qs.modules.bar
 import qs.modules.background
-import qs.modules.controlCenter
-import qs.modules.border
 import qs.modules.launcher
 import qs.modules.overlays
-import qs.modules.powerMenu
 import qs.modules.notifications
+import qs.modules.controlCenter
 import qs.modules.settings
-import QtQuick
-import Quickshell
-import Quickshell.Io
+
+import QtQuick 
+import Quickshell  
 
 ShellRoot {
-
-    // Initiate shell
-    BorderWindow {}
-    Bar {}
-    PowerMenu{}
-    LauncherWindow{}
-    Background{}
     GlobalProcesses{}
-    ControlCenter{}
+    Background{}
+    Bar{}
+    Launcher{}
     Overlays{}
-    Settings{}
     Notification{}
-
+    ControlCenter{}
+    Settings{}
 }

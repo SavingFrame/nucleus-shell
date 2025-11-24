@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.services
 import Quickshell.Widgets
@@ -33,19 +33,13 @@ ContentMenu {
             Item { Layout.fillWidth: true }
 
             StyledSwitch {
-                checked: Config.options.appearance.theme === "dark"
+                checked: Shell.flags.appearance.theme === "dark"
                 onToggled: {
                     Quickshell.execDetached({
                         command: ['qs', 'ipc', 'call', 'global', "toggleTheme"]
                     })
                 }
             }
-        }
-
-        StyledSwitchOption {
-            title: "Enabled screen borders"
-            description: "Whether to keep screen borders or not."
-            prefField: "background.borderEnabled"
         }
 
         StyledSwitchOption {
@@ -76,11 +70,12 @@ ContentMenu {
 
                     delegate: StyledButton {
                         text: modelData
+                        clip: true
                         Layout.fillWidth: true
                         implicitWidth: 0
 
                         // Selected state
-                        checked: Config.options.global.colorScheme === modelData
+                        checked: Shell.flags.appearance.colorScheme === modelData
 
                         // Rounded corners depending on whether this is first/last item
                         topLeftRadius: index === 0
@@ -98,7 +93,7 @@ ContentMenu {
                             : Appearance.rounding.small
 
                         onClicked: {
-                            Config.setNestedValue("global.colorScheme", modelData)
+                            Shell.setNestedValue("appearance.colorScheme", modelData)
                             Quickshell.execDetached(["qs", "ipc", "call", "global", "regenColors"])
                         }
                     }

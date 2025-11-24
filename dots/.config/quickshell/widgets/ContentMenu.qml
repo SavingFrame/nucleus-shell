@@ -1,6 +1,6 @@
+import qs.settings
 import QtQuick
 import QtQuick.Layouts
-import qs.config
 
 Item {
     id: contentMenu

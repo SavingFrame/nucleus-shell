@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.services
 import QtQuick
@@ -12,7 +12,7 @@ StyledRect {
     height: 80
     radius: Appearance.rounding.verylarge
 
-    property bool isActive: Config.options.misc.dndEnabled
+    property bool isActive: Shell.flags.misc.dndEnabled
     readonly property string themestatustext: isActive ? "Active" : "Inactive"
     property string themestatusicon: isActive ? "do_not_disturb_on" : "do_not_disturb_off"
 
@@ -23,7 +23,7 @@ StyledRect {
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
     function toggleDnd() {
-        Config.setNestedValue("misc.dndEnabled", !isActive)
+        Shell.setNestedValue("misc.dndEnabled", !isActive)
     }
 
     // Icon background

@@ -1,5 +1,5 @@
 import qs.functions 
-import qs.config
+import qs.settings
 import QtQuick
 
 Item {

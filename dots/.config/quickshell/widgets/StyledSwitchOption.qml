@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -15,9 +15,9 @@ RowLayout {
     }
     Item { Layout.fillWidth: true }
     StyledSwitch {
-        checked: Config.options[main.prefField.split('.')[0]][main.prefField.split('.')[1]]
+        checked: Shell.flags[main.prefField.split('.')[0]][main.prefField.split('.')[1]]
         onToggled: {
-            Config.setNestedValue(main.prefField, checked)
+            Shell.setNestedValue(main.prefField, checked)
         }
     }
 }

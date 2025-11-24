@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 
-import qs.config
+import qs.settings
 import QtQuick
 import QtQuick.Controls
 

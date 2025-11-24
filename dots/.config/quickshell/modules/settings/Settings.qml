@@ -1,6 +1,6 @@
 import qs.services
 import qs.widgets 
-import qs.config
+import qs.settings
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -13,7 +13,7 @@ Scope {
     IpcHandler {
         target: "settings"
         function open(menu: string) {
-            SessionState.visible_settingsMenu = true
+            GlobalStates.visible_settingsMenu = true
             if (menu !== "" && settingsWindow !== null) {
                 for (var i = 0; i < settingsWindow.menuModel.length; i++) {
                     var item = settingsWindow.menuModel[i]
@@ -27,7 +27,7 @@ Scope {
     }
 
     LazyLoader {
-        active: SessionState.visible_settingsMenu
+        active: GlobalStates.visible_settingsMenu
 
         Window {
             id: root
@@ -36,7 +36,7 @@ Scope {
             visible: true
             title: "Aelyx Settings"
             color: Appearance.m3colors.m3background
-            onClosing: SessionState.visible_settingsMenu = false
+            onClosing: GlobalStates.visible_settingsMenu = false
 
             property int selectedIndex: 0
             property bool sidebarCollapsed: false
@@ -49,7 +49,6 @@ Scope {
                 { icon: "wallpaper", label: "Wallpapers", page: 2},
                 { icon: "build", label: "Misc", page: 3},
                 { header: true, label: "Configuration" },
-                { icon: "info", label: "About", page: 4},
             ]
 
             Component.onCompleted: settingsWindow = root
@@ -199,7 +198,6 @@ Scope {
                     InterfaceConfig { }
                     WallpaperConfig { }
                     MiscMenu { }
-                    AboutMenu { }
                 }
             }
         }

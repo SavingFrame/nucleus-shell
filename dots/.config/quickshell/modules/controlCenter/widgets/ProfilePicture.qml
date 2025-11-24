@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets 
 import qs.modules.bar
 import QtQuick 
@@ -29,7 +29,7 @@ BarModule {
 
         Image {
             anchors.fill: parent
-            source: Config.options.global.pfp
+            source: Shell.flags.misc.pfp
             fillMode: Image.PreserveAspectCrop
             cache: true
             opacity: 0.9

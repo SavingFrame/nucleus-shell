@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.modules.bar
 import qs.services
@@ -17,15 +17,15 @@ BarModule {
     Rectangle {
         id: bgRect
         color: Appearance.m3colors.m3paddingContainer
-        radius: Appearance.rounding.normal
+        radius: Shell.flags.bar.moduleRadius
         implicitWidth: row.implicitWidth + Appearance.margin.large
         implicitHeight: Math.max(row.implicitHeight + Appearance.margin.small - 2, 28)
 
         MouseArea {
             anchors.fill: parent 
             onClicked: {
-                SessionState.mediaPlayerOpen = !SessionState.mediaPlayerOpen
-                Qt.callLater(() => SessionState.mediaPlayerOpen = SessionState.mediaPlayerOpen)
+                GlobalStates.mediaPlayerOpen = !GlobalStates.mediaPlayerOpen
+                Qt.callLater(() => GlobalStates.mediaPlayerOpen = GlobalStates.mediaPlayerOpen)
             }
         }
 
@@ -43,7 +43,7 @@ BarModule {
             width: 24
             height: 24
             radius: height / 2
-            color: Appearance.m3colors.m3paddingContainer
+            color: Qt.darker(Appearance.m3colors.m3primaryContainer, 1.3)
             opacity: 1
 
             MaterialSymbol {

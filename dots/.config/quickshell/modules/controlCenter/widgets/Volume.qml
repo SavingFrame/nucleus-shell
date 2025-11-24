@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.services
 import QtQuick
@@ -30,6 +30,6 @@ StyledSlider {
 
     onMoved: { 
         if (sink) sink.volume = value
-        SessionState.osdNeeded = false;
+        GlobalStates.osdNeeded = false;
     }
 }

@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.services
 import qs.functions
@@ -15,44 +15,33 @@ import Qt5Compat.GraphicalEffects
 PanelWindow {
     id: controlCenter
     WlrLayershell.layer: WlrLayer.Top
-    visible: Config.ready
+    visible: Shell.ready && GlobalStates.controlCenterOpen
 
     color: "transparent"
-    focusable: true
     exclusiveZone: 0
 
     // --- Directly use Hyprland's focused monitor ---
     property var monitor: Hyprland.focusedMonitor
 
 
-    property real controlCenterWidth: 520
+    property real controlCenterWidth: Shell.flags.bar.modules.bluetoothWifi.position === "center" ? 560 : 520
     property real controlCenterHeight: 640
 
     implicitWidth: controlCenterWidth
     implicitHeight: controlCenterHeight
 
     anchors {
-        top: true
-        left: true
-        right: true
-        bottom: true
+        top: Shell.flags.bar.atTop 
+        left: Shell.flags.bar.modules.bluetoothWifi.position === "left"
+        right: Shell.flags.bar.modules.bluetoothWifi.position === "right" 
+        bottom: !Shell.flags.bar.atTop
     }
 
-    function shortText(str, len = 25) {
-        if (!str)
-            return ""
-        return str.length > len ? str.slice(0, len) + "" : str
-    }
-
-    component Anim: NumberAnimation {
-        duration: 400
-        easing.type: Easing.BezierSpline
-        easing.bezierCurve: Appearance.animation.curves.standard
-    }
-
-    mask: Region {
-        item: overlay
-        intersection: SessionState.controlCenterOpen ? Intersection.Combine : Intersection.Xor
+    margins {
+        top: Shell.flags.bar.atTop ? Appearance.margin.small : 0
+        bottom: !Shell.flags.bar.atTop ? Appearance.margin.small : 0
+        left: Appearance.margin.large
+        right: Appearance.margin.large
     }
 
     PwObjectTracker {
@@ -61,61 +50,22 @@ PanelWindow {
 
     property var sink: Pipewire.defaultAudioSink?.audio
 
-    Rectangle {
-        id: overlay
-        anchors.fill: parent
-        color: "transparent"
-        opacity: SessionState.controlCenterOpen ? 1 : 0
-        Behavior on opacity { Anim {} }
 
-        MouseArea {
-            anchors.fill: parent
-            enabled: SessionState.controlCenterOpen
-            onClicked: SessionState.controlCenterOpen = false
-        }
-    }
-
-    MergedEdgeRect {
+    StyledRect {
         id: container
-        visible: implicitHeight > 0
         color: Appearance.m3colors.m3background
-        cornerRadius: Appearance.rounding.verylarge
+        radius: Appearance.rounding.verylarge
         implicitWidth: controlCenter.controlCenterWidth
-        implicitHeight: SessionState.controlCenterOpen ? controlCenter.controlCenterHeight : 0
+        implicitHeight: controlCenter.controlCenterHeight
 
-        Behavior on implicitHeight { Anim {} }
+        anchors.fill: parent
 
-        anchors {
-            right: parent.right
-            rightMargin: Config.options.background.borderEnabled ? Appearance.margin.tiny + 2 : 0
-            horizontalCenter: parent.horizontalCenter
-            verticalCenter: parent.verticalCenter
-        }
-
-        states: [
-            State {
-                name: "ccAtBottom"
-                when: Config.options.bar.position === 2
-                AnchorChanges {
-                    target: container
-                    anchors.top: undefined
-                    anchors.bottom: parent.bottom
-                }
-            },
-            State {
-                name: "ccAtTop"
-                when: Config.options.bar.position === 1
-                AnchorChanges {
-                    target: container
-                    anchors.bottom: undefined
-                    anchors.top: parent.top
-                }
-            }
-        ]
-        content: Item {
+        Item {
             anchors.fill: parent
-            opacity: SessionState.controlCenterOpen ? 1 : 0
-            Behavior on opacity { Anim {} }
+            anchors.leftMargin: Appearance.margin.large
+            anchors.rightMargin: Appearance.margin.small
+            anchors.topMargin: Appearance.margin.large + 5 
+            anchors.bottomMargin: Appearance.margin.large
 
             ColumnLayout {
                 id: mainLayout
@@ -124,8 +74,8 @@ PanelWindow {
                 anchors.right: parent.right
                 anchors.leftMargin: Appearance.margin.tiny
                 anchors.rightMargin: Appearance.margin.small
-                anchors.topMargin: Config.options.bar.position === 1 ? Appearance.margin.large : 0
-                anchors.bottomMargin: Config.options.bar.position === 2 ? Appearance.margin.large : 0
+                anchors.topMargin: Shell.flags.bar.atTop ? Appearance.margin.large : 0
+                anchors.bottomMargin: !Shell.flags.bar.atTop ? Appearance.margin.large : 0
                 anchors.margins: Appearance.margin.large
                 spacing: Appearance.margin.large
 
@@ -155,7 +105,7 @@ PanelWindow {
                             }
 
                             StyledText {
-                                text: Stringify.shortText(SystemDetails.uptime, 17)
+                                text: Stringify.shortText(SystemDetails.uptime, 18)
                                 font.pixelSize: Appearance.font.size.normal
                             }
                         }
@@ -184,8 +134,8 @@ PanelWindow {
                                 iconSize: Appearance.font.size.wildass - 10
 
                                 onButtonClicked: {
-                                    SessionState.controlCenterOpen = false
-                                    SessionState.powerMenuOpen = true
+                                    GlobalStates.controlCenterOpen = false
+                                    GlobalStates.powerMenuOpen = true
                                 }
                             }
                         }
@@ -206,8 +156,8 @@ PanelWindow {
                                 iconSize: Appearance.font.size.wildass - 10
 
                                 onButtonClicked: {
-                                    SessionState.controlCenterOpen = false
-                                    SessionState.visible_settingsMenu = true
+                                    GlobalStates.controlCenterOpen = false
+                                    GlobalStates.visible_settingsMenu = true
                                 }
                             }
                         }
@@ -315,8 +265,8 @@ PanelWindow {
 
     // --- Toggle logic ---
     function togglecontrolCenter() {
-        const newState = !SessionState.controlCenterOpen
-        SessionState.controlCenterOpen = newState
+        const newState = !GlobalStates.controlCenterOpen
+        GlobalStates.controlCenterOpen = newState
         if (newState)
             controlCenter.forceActiveFocus()
         else

@@ -1,0 +1,68 @@
+{
+    "appearance": {
+        "colorScheme": "scheme-fidelity",
+        "theme": "dark"
+    },
+    "background": {
+        "borderEnabled": false,
+        "clockTimeFormat": "hh:mm",
+        "clockX": 1478,
+        "clockY": 638,
+        "showClock": false,
+        "wallpaperEnabled": true,
+        "wallpaperPath": "file:///home/zepyx/Pictures/Wallpapers/118016954_p0.png"
+    },
+    "bar": {
+        "atTop": true,
+        "enabled": true,
+        "floating": true,
+        "floatingModules": true,
+        "height": 50,
+        "islandRadius": 23,
+        "moduleRadius": 14,
+        "modules": {
+            "activeTopLevel": {
+                "enabled": true,
+                "position": "left"
+            },
+            "bluetoothWifi": {
+                "enabled": true,
+                "position": "right"
+            },
+            "clock": {
+                "enabled": true,
+                "position": "left"
+            },
+            "media": {
+                "enabled": true,
+                "position": "right"
+            },
+            "network": {
+                "enabled": true,
+                "position": "center"
+            },
+            "systemTray": {
+                "enabled": true,
+                "position": "left"
+            },
+            "userHostname": {
+                "enabled": true,
+                "position": "center"
+            },
+            "workspaces": {
+                "enabled": true,
+                "largeIcons": false,
+                "numWorkspaces": 8,
+                "position": "center",
+                "showNumbers": false
+            }
+        },
+        "radius": 30,
+        "separatedIslands": true
+    },
+    "misc": {
+        "dndEnabled": true,
+        "notificationDaemonEnabled": true,
+        "pfp": "file:///home/zepyx/.local/share/aelyx/defaults/pfp.png"
+    }
+}

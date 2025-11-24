@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.services
 import qs.widgets
 import qs.modules.bar
@@ -17,7 +17,7 @@ BarModule {
     }
 
     // --- Properties ---
-    property int numWorkspaces: Config.options.bar.modules.workspaces.visibleWorkspaces
+    property int numWorkspaces: Shell.flags.bar.modules.workspaces.numWorkspaces
 
     // let layout determine size naturally
     implicitWidth: bgRect.implicitWidth
@@ -27,28 +27,24 @@ BarModule {
     Rectangle {
         id: bgRect
         color: Appearance.m3colors.m3paddingContainer
-        radius: Appearance.rounding.normal
+        radius: Shell.flags.bar.moduleRadius
 
         implicitWidth: workspaceRow.implicitWidth + Appearance.margin.large - 2
-        implicitHeight: Config.options.bar.modules.workspaces.largeWorkspacesIcon ? workspaceRow.implicitHeight + Appearance.margin.large - 8.5 : workspaceRow.implicitHeight + Appearance.margin.large - 2
+        implicitHeight: Shell.flags.bar.modules.workspaces.largeIcons ? workspaceRow.implicitHeight + Appearance.margin.large - 8.5 : workspaceRow.implicitHeight + Appearance.margin.large 
 
-        MouseArea {
-            anchors.fill: parent 
-            onClicked: SessionState.overviewOpen = !SessionState.overviewOpen
-        }
 
         Row {
             id: workspaceRow
             anchors.centerIn: parent
-            spacing: Config.options.bar.modules.workspaces.largeWorkspacesIcon ? 4 : 5
+            spacing: Shell.flags.bar.modules.workspaces.largeIcons ? 4 : 5
 
             Repeater {
                 model: numWorkspaces
 
                 Rectangle {
                     id: wsBox
-                    property int prefHeight: Config.options.bar.modules.workspaces.largeWorkspacesIcon ? 20 : 12
-                    property int prefWidth: Config.options.bar.modules.workspaces.largeWorkspacesIcon ? ((index + 1) === Hyprland.focusedWorkspaceId ? 46 : 24) : ((index + 1) === Hyprland.focusedWorkspaceId ? 44 : 12)
+                    property int prefHeight: Shell.flags.bar.modules.workspaces.largeIcons ? 20 : 12
+                    property int prefWidth: Shell.flags.bar.modules.workspaces.largeIcons ? ((index + 1) === Hyprland.focusedWorkspaceId ? 50 : 33) : ((index + 1) === Hyprland.focusedWorkspaceId ? 44 : 12)
                     width: prefWidth
 
                     height: prefHeight
@@ -88,7 +84,7 @@ BarModule {
                     }
 
                     StyledText {
-                        visible: Config.options.bar.modules.workspaces.showNumbers && Config.options.bar.modules.workspaces.largeWorkspacesIcon
+                        visible: Shell.flags.bar.modules.workspaces.showNumbers && Shell.flags.bar.modules.workspaces.largeIcons
                         anchors.centerIn: parent
                         text: (index + 1).toString()
                         font.pixelSize: Appearance.font.size.small 

@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.modules.bar
 import qs.services
 import qs.widgets
@@ -22,10 +22,10 @@ BarModule {
     Rectangle {
         id: bgRect
         color: "transparent"
-        radius: Appearance.rounding.small
+        radius: Shell.flags.bar.moduleRadius
 
         implicitWidth: Appearance.margin.large
-        implicitHeight: Config.options.bar.implicitHeight
+        implicitHeight: Shell.flags.bar.height
 
         property real volume: (Pipewire.defaultAudioSink?.audio.volume ?? 0)
 
@@ -47,7 +47,7 @@ BarModule {
                     return
 
                 const step = 0.01
-                SessionState.osdNeeded = true;
+                GlobalStates.osdNeeded = true;
 
                 if (wheelEvent.angleDelta.y > 0) {
                     sink.volume = Math.min(sink.volume + step, 1)

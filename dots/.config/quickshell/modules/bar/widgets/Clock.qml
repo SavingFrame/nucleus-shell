@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.modules.bar
 import qs.services
@@ -7,9 +7,9 @@ import QtQuick.Layouts
 
 BarModule {
     id: clockContainer
-    Layout.alignment: Qt.AlignCenter | Qt.AlignVCenter
+    Layout.alignment: Qt.AlignVCenter
 
-    property string format: Config.options.bar.modules.clock.format 
+    property string format: "hh:mm AP"
 
 
     // Let the layout compute size automatically
@@ -19,7 +19,7 @@ BarModule {
     Rectangle {
         id: bgRect
         color: Appearance.m3colors.m3paddingContainer
-        radius: Appearance.rounding.normal
+        radius: Shell.flags.bar.moduleRadius
 
         // Padding around the text
         implicitWidth: textItem.implicitWidth + Appearance.margin.large

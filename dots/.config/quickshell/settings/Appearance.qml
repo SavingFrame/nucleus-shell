@@ -15,19 +15,21 @@ Singleton {
     property QtObject animation
     property string syntaxHighlightingTheme
 
+    readonly property bool darkmode: Shell.flags.appearance.theme === "dark"
+
     colors: QtObject {
         property color colSubtext: m3colors.m3outline
         property color colLayer0: m3colors.m3background
-        property color colLayer0Border: ColorUtils.mix(root.m3colors.m3outlineVariant, colLayer0, 0.4)
+        property color colLayer0Border: ColorModifier.mix(root.m3colors.m3outlineVariant, colLayer0, 0.4)
         property color colLayer1: m3colors.m3surfaceContainerLow
         property color colOnLayer1: m3colors.m3onSurfaceVariant
-        property color colOnLayer1Inactive: ColorUtils.mix(colOnLayer1, colLayer1, 0.45)
-        property color colLayer1Hover: ColorUtils.mix(colLayer1, colOnLayer1, 0.92)
-        property color colLayer1Active: ColorUtils.mix(colLayer1, colOnLayer1, 0.85)
+        property color colOnLayer1Inactive: ColorModifier.mix(colOnLayer1, colLayer1, 0.45)
+        property color colLayer1Hover: ColorModifier.mix(colLayer1, colOnLayer1, 0.92)
+        property color colLayer1Active: ColorModifier.mix(colLayer1, colOnLayer1, 0.85)
         property color colLayer2: m3colors.m3surfaceContainer
         property color colOnLayer2: m3colors.m3onSurface
-        property color colLayer2Hover: ColorUtils.mix(colLayer2, colOnLayer2, 0.90)
-        property color colLayer2Active: ColorUtils.mix(colLayer2, colOnLayer2, 0.80)
+        property color colLayer2Hover: ColorModifier.mix(colLayer2, colOnLayer2, 0.90)
+        property color colLayer2Active: ColorModifier.mix(colLayer2, colOnLayer2, 0.80)
         property color colPrimary: m3colors.m3primary
         property color colOnPrimary: m3colors.m3onPrimary
         property color colSecondary: m3colors.m3secondary
@@ -35,17 +37,16 @@ Singleton {
         property color colOnSecondaryContainer: m3colors.m3onSecondaryContainer
         property color colTooltip: m3colors.m3inverseSurface
         property color colOnTooltip: m3colors.m3inverseOnSurface
-        property color colShadow: ColorUtils.transparentize(m3colors.m3shadow, 0.7)
+        property color colShadow: ColorModifier.transparentize(m3colors.m3shadow, 0.7)
         property color colOutline: m3colors.m3outline
     }
 
     m3colors: QtObject {
-        readonly property bool darkmode: Config.options.appearance.theme === "dark"
         readonly property bool transparent: false
 
         // --- Background & Surfaces ---
         readonly property color m3background: MaterialColors.colors.background
-        readonly property color m3paddingContainer: Qt.rgba(Appearance.m3colors.m3primary.r, Appearance.m3colors.m3primary.g, Appearance.m3colors.m3primary.b, 0.12)
+        readonly property color m3paddingContainer: m3primaryContainer
         readonly property color m3surface: MaterialColors.colors.surface
         readonly property color m3surfaceDim: MaterialColors.colors.surface_dim
         readonly property color m3surfaceBright: MaterialColors.colors.surface_bright
@@ -260,5 +261,5 @@ Singleton {
         }
     }
 
-    syntaxHighlightingTheme: Config.options.appearance.theme === "dark" ? '#f1ebeb' : "#141333"
+    syntaxHighlightingTheme: darkmode ? '#f1ebeb' : "#141333"
 }

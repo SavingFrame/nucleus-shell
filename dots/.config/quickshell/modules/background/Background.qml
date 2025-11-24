@@ -1,5 +1,5 @@
 import qs.widgets 
-import qs.config
+import qs.settings
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -10,13 +10,15 @@ Scope {
     id: root 
     Variants {
         model: Quickshell.screens 
-        PanelWindow {
+        StaticWindow {
             required property var modelData
             id: backgroundContainer
             color: "transparent"
+            namespace: "aelyx:background"
+            exclusionMode: ExclusionMode.Ignore
             WlrLayershell.layer: WlrLayer.Background
             screen: modelData
-            visible: Config.ready && Config.options.background.wallpaperEnabled
+            visible: Shell.ready && Shell.flags.background.wallpaperEnabled
 
             anchors {
                 top: true
@@ -32,7 +34,7 @@ Scope {
                 id: wallpaperProc
                 command: [
                     "bash", "-c",
-                    "~/.config/quickshell/bin/background/changebg.sh"
+                    "~/.local/share/aelyx/scripts/background/changebg.sh"
                 ]
 
                 stdout: StdioCollector {
@@ -51,10 +53,10 @@ Scope {
                 id: genColorsProc
                 command: [
                     "bash", "-c",
-                    "~/.config/quickshell/bin/background/gencolors.sh " +
-                    Config.options.background.wallpaperPath + " " +
-                    Config.options.global.colorScheme + " " +
-                    Config.options.appearance.theme
+                    "~/.local/share/aelyx/scripts/background/gencolors.sh " +
+                    Shell.flags.background.wallpaperPath + " " +
+                    Shell.flags.appearance.colorScheme + " " +
+                    Shell.flags.appearance.theme
                 ]
             }
 
@@ -65,7 +67,7 @@ Scope {
                 height: modelData.height
                 width: modelData.width
                 fillMode: Image.PreserveAspectCrop
-                source: Config.options.background.wallpaperPath
+                source: Shell.flags.background.wallpaperPath
                 opacity: 1.0
             }
 
@@ -120,7 +122,7 @@ Scope {
 
             function applyWallpaper() {
                 background.source = pendingWallpaper
-                Config.setNestedValue("background.wallpaperPath", pendingWallpaper)
+                Shell.setNestedValue("background.wallpaperPath", pendingWallpaper)
                 genColorsProc.running = true
             }
 

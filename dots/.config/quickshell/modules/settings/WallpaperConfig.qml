@@ -1,6 +1,6 @@
 import qs.services
 import qs.widgets 
-import qs.config
+import qs.settings
 import Quickshell.Widgets
 import Quickshell
 import Quickshell.Io
@@ -25,7 +25,7 @@ ContentMenu {
             width: root.screen.width / 2
             height: width * root.screen.height / root.screen.width
             radius: 10
-            color: Appearance.colors.m3surfaceContainer
+            color: Appearance.m3colors.m3surfaceContainer
 
             StyledText {
                 text: "Current Wallpaper:"
@@ -49,17 +49,17 @@ ContentMenu {
                 }
 
                 StyledText {
-                    opacity: !Config.options.background.wallpaperEnabled ? 1 : 0
+                    opacity: !Shell.flags.background.wallpaperEnabled ? 1 : 0
                     Behavior on opacity { Anim {} }
                     font.pixelSize: Appearance.font.size.title
                     text: "Wallpaper Manager Disabled"
                     anchors.centerIn: parent
                 }
                 Image {
-                    opacity: Config.options.background.wallpaperEnabled ? 1 : 0
+                    opacity: Shell.flags.background.wallpaperEnabled ? 1 : 0
                     Behavior on opacity { Anim {} }
                     anchors.fill: parent
-                    source: Config.options.background.wallpaperPath
+                    source: Shell.flags.background.wallpaperPath
                     fillMode: Image.PreserveAspectCrop
                     cache: true
                     opacity: 0.9

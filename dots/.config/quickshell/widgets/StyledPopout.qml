@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts

@@ -26,7 +26,7 @@ WHITELIST=(
 # Search paths for .desktop files (local first so overrides work)
 SEARCH_PATHS=(
     "$HOME/.local/share/applications"
-    "$HOME/.local/aelyx/apps"
+    "$HOME/.local/share/aelyx/shellApps"
     "$HOME/.local/share/flatpak/exports/share/applications"
     "/var/lib/flatpak/exports/share/applications"
     "/usr/local/share/applications"

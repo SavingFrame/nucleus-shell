@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.services
 import QtQuick
@@ -23,7 +23,7 @@ StyledSlider {
     property real level: brightnessSlider.value * 100
 
     onMoved: if (monitor) {
-        SessionState.osdNeeded = false;
+        GlobalStates.osdNeeded = false;
         monitor.setBrightness(value);
     }
 }

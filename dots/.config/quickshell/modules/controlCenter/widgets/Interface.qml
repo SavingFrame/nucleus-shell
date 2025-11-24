@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.services
 import QtQuick
@@ -15,7 +15,7 @@ Rectangle {
     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
     Layout.margins: 0
 
-    readonly property bool isDark: Config.options.appearance.theme === "dark"
+    readonly property bool isDark: Shell.flags.appearance.theme === "dark"
     readonly property string themestatustext: isDark ? "Dark Theme" : "Light Theme"
     property string themestatusicon: isDark ? "dark_mode" : "light_mode"
 

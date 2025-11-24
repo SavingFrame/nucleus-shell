@@ -1,5 +1,4 @@
-import qs.config
-import qs.widgets
+import qs.settings
 import qs.functions
 import QtQuick
 import QtQuick.Controls
@@ -33,8 +32,8 @@ Control {
         : Appearance.m3colors.m3onSecondaryContainer
 
     // Disabled colors
-    property color disabled_bg: ColorUtils.transparentize(base_bg, 0.4)
-    property color disabled_fg: ColorUtils.transparentize(base_fg, 0.4)
+    property color disabled_bg: ColorModifier.transparentize(base_bg, 0.4)
+    property color disabled_fg: ColorModifier.transparentize(base_fg, 0.4)
 
     property color hover_bg: Qt.lighter(base_bg, 1.1)
     property color pressed_bg: Qt.darker(base_bg, 1.2)

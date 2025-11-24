@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.services
 import QtQuick
@@ -41,13 +41,13 @@ Scope {
 		active: root.shouldShowOsd
 
 		PanelWindow {
-			visible: SessionState.osdNeeded
+			visible: GlobalStates.osdNeeded
 			exclusiveZone: 0
-			anchors.top: Config.options.bar.position === 1
-			margins.top: Config.options.bar.position === 1 ? 10 : 0
+			anchors.top: Shell.flags.bar.atTop
+			margins.top: Shell.flags.bar.atTop ? 10 : 0
 
-            anchors.bottom: Config.options.bar.position === 2 
-			margins.bottom: Config.options.bar.position === 2 ? 10 : 0
+            anchors.bottom: !Shell.flags.bar.atTop
+			margins.bottom: !Shell.flags.bar.atTop ? 10 : 0
 
 
 			implicitWidth: 400
@@ -59,7 +59,7 @@ Scope {
 			Rectangle {
 				anchors.fill: parent
 				radius: 20
-				color: Appearance.m3colors.m3onSecondary
+				color: Appearance.m3colors.m3paddingContainer
 
 				RowLayout {
 					spacing: 10

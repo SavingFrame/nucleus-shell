@@ -7,7 +7,7 @@ import Quickshell.Io
 
 Singleton {
     id: m3colors
-    property string filePath: StandardPaths.writableLocation(StandardPaths.ConfigLocation) + "/aelyxshell/colors.json"
+    property string filePath: StandardPaths.writableLocation(StandardPaths.HomeLocation) + "/.local/share/aelyx/generated/colors.json"
     property alias colors: colorsJsonAdapter
     property bool ready: false
 

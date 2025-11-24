@@ -1,7 +1,7 @@
 import qs.widgets
 import qs.services
 import qs.modules.bar
-import qs.config
+import qs.settings
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -24,7 +24,7 @@ BarModule {
     Rectangle {
         id: bgRect
         color: Appearance.m3colors.m3paddingContainer
-        radius: Appearance.rounding.normal
+        radius: Shell.flags.bar.moduleRadius
 
         implicitWidth: textItem.implicitWidth + Appearance.margin.large
         implicitHeight: textItem.implicitHeight + Appearance.margin.small

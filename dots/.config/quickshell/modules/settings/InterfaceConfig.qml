@@ -1,11 +1,11 @@
-import qs.services
-import qs.widgets 
-import qs.config
-import Quickshell.Widgets
-import Quickshell
-import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Io
+import Quickshell.Widgets
+import qs.services
+import qs.settings
+import qs.widgets
 
 ContentMenu {
     title: "Interface"
@@ -23,48 +23,56 @@ ContentMenu {
                 text: "Position"
                 font.pixelSize: 16
             }
+
             RowLayout {
+                spacing: 8
+
                 Repeater {
-                    model: ['Bottom', 'Top']
+                    model: ['Top', 'Bottom']
+
                     delegate: StyledButton {
+                        property bool isTop: modelData.toLowerCase() === "top"
+
                         text: modelData
-                        Layout.fillWidth: true
                         implicitWidth: 0
-                        checked: Config.options.bar.position === (modelData.toLowerCase() === "bottom" ? 2 : 1)
-
-                        topLeftRadius: (modelData === "Left" || Config.options.bar.position === (modelData.toLowerCase() === "bottom" ? 2 : 1)) 
-                            ? Appearance.rounding.normal 
-                            : Appearance.rounding.small
-                        bottomLeftRadius: (modelData === "Left" || Config.options.bar.position === (modelData.toLowerCase() === "bottom" ? 2 : 1)) 
-                            ? Appearance.rounding.normal 
-                            : Appearance.rounding.small
-                        topRightRadius: (modelData === "Right" || Config.options.bar.position === (modelData.toLowerCase() === "bottom" ? 2 : 1)) 
-                            ? Appearance.rounding.normal 
-                            : Appearance.rounding.small
-                        bottomRightRadius: (modelData === "Right" || Config.options.bar.position === (modelData.toLowerCase() === "bottom" ? 2 : 1)) 
-                            ? Appearance.rounding.normal 
-                            : Appearance.rounding.small
-
-                        property int position: modelData.toLowerCase() === "bottom" ? 2 : 1
-
-                        onClicked: {
-                            Config.setNestedValue("bar.position", position)
-                        }
+                        Layout.fillWidth: true // make both buttons full width
+                        checked: Shell.flags.bar.atTop === isTop
+                        // Rounded corners for visual consistency
+                        topLeftRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
+                        bottomLeftRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
+                        topRightRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
+                        bottomRightRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
+                        onClicked: Shell.setNestedValue("bar.atTop", isTop)
                     }
+
                 }
+
             }
+
         }
 
         StyledSwitchOption {
-            title: "Visible";
+            title: "Visible"
             description: "Change the bar's visiblity."
             prefField: "bar.enabled"
         }
 
         StyledSwitchOption {
-            title: "Large Workspace Icons";
+            title: "Floating Bar"
+            description: "Whether to keep the bar floating."
+            prefField: "bar.floating"
+        }
+
+        StyledSwitchOption {
+            title: "Floating Modules"
+            description: "Whether to keep the modules floating."
+            prefField: "bar.floatingModules"
+        }
+
+        StyledSwitchOption {
+            title: "Large Workspace Icons"
             description: "Whether to keep the workspace icons large or not\nIf disabled, the bar will use small icons."
-            prefField: "bar.modules.workspaces.largeWorkspacesIcon"
+            prefField: "bar.modules.workspaces.largeIcons"
         }
 
         StyledSwitchOption {
@@ -73,10 +81,372 @@ ContentMenu {
             prefField: "bar.modules.workspaces.showNumbers"
         }
 
-        StyledSwitchOption {
-            title: "Autohide"
-            description: "Automaticly hide bar when not focused. Still experimental"
-            prefField: "bar.autohide"
-        }
     }
+
+    ContentCard {
+        StyledText {
+            text: "Bar Content"
+            font.pixelSize: 20
+            font.bold: true
+        }
+
+        ColumnLayout {
+            spacing: 20
+
+            // --- Workspaces ---
+            ColumnLayout {
+                StyledText {
+                    text: "Workspaces"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+
+                StyledSwitchOption {
+                    title: "Enabled"
+                    description: "Enable Workspaces"
+                    prefField: "bar.modules.workspaces.enabled"
+
+                    RowLayout {
+                        Rectangle {
+                            width: 1
+                            Layout.fillHeight: true
+                            color: Appearance.m3colors.m3outline
+                        }
+
+                        Repeater {
+                            model: ['Left', 'Center', 'Right']
+
+                            delegate: StyledButton {
+                                property string posValue: modelData.toLowerCase()
+
+                                text: modelData
+                                implicitWidth: 80
+                                checked: Shell.flags.bar.modules.workspaces.position === posValue
+                                topLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                topRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                onClicked: Shell.setNestedValue("bar.modules.workspaces.position", posValue)
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // --- System Tray ---
+            ColumnLayout {
+                StyledText {
+                    text: "System Tray"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+
+                StyledSwitchOption {
+                    title: "Enabled"
+                    description: "Enable System Tray"
+                    prefField: "bar.modules.systemTray.enabled"
+
+                    RowLayout {
+                        Rectangle {
+                            width: 1
+                            Layout.fillHeight: true
+                            color: Appearance.m3colors.m3outline
+                        }
+
+                        Repeater {
+                            model: ['Left', 'Center', 'Right']
+
+                            delegate: StyledButton {
+                                property string posValue: modelData.toLowerCase()
+
+                                text: modelData
+                                implicitWidth: 80
+                                checked: Shell.flags.bar.modules.systemTray.position === posValue
+                                topLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                topRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                onClicked: Shell.setNestedValue("bar.modules.systemTray.position", posValue)
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // --- Media ---
+            ColumnLayout {
+                StyledText {
+                    text: "Media"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+
+                StyledSwitchOption {
+                    title: "Enabled"
+                    description: "Enable Media Module"
+                    prefField: "bar.modules.media.enabled"
+
+                    RowLayout {
+                        Rectangle {
+                            width: 1
+                            Layout.fillHeight: true
+                            color: Appearance.m3colors.m3outline
+                        }
+
+                        Repeater {
+                            model: ['Left', 'Center', 'Right']
+
+                            delegate: StyledButton {
+                                property string posValue: modelData.toLowerCase()
+
+                                text: modelData
+                                implicitWidth: 80
+                                checked: Shell.flags.bar.modules.media.position === posValue
+                                topLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                topRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                onClicked: Shell.setNestedValue("bar.modules.media.position", posValue)
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // --- Bluetooth & WiFi ---
+            ColumnLayout {
+                StyledText {
+                    text: "Bluetooth & WiFi"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+
+                StyledSwitchOption {
+                    title: "Enabled"
+                    description: "Enable Bluetooth/WiFi Module"
+                    prefField: "bar.modules.bluetoothWifi.enabled"
+
+                    RowLayout {
+                        Rectangle {
+                            width: 1
+                            Layout.fillHeight: true
+                            color: Appearance.m3colors.m3outline
+                        }
+
+                        Repeater {
+                            model: ['Left', 'Center', 'Right']
+
+                            delegate: StyledButton {
+                                property string posValue: modelData.toLowerCase()
+
+                                text: modelData
+                                implicitWidth: 80
+                                checked: Shell.flags.bar.modules.bluetoothWifi.position === posValue
+                                topLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                topRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                onClicked: Shell.setNestedValue("bar.modules.bluetoothWifi.position", posValue)
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // --- Network ---
+            ColumnLayout {
+                StyledText {
+                    text: "Network"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+
+                StyledSwitchOption {
+                    title: "Enabled"
+                    description: "Enable Network Module"
+                    prefField: "bar.modules.network.enabled"
+
+                    RowLayout {
+                        Rectangle {
+                            width: 1
+                            Layout.fillHeight: true
+                            color: Appearance.m3colors.m3outline
+                        }
+
+                        Repeater {
+                            model: ['Left', 'Center', 'Right']
+
+                            delegate: StyledButton {
+                                property string posValue: modelData.toLowerCase()
+
+                                text: modelData
+                                implicitWidth: 80
+                                checked: Shell.flags.bar.modules.network.position === posValue
+                                topLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                topRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                onClicked: Shell.setNestedValue("bar.modules.network.position", posValue)
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // --- User Hostname ---
+            ColumnLayout {
+                StyledText {
+                    text: "User Hostname"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+
+                StyledSwitchOption {
+                    title: "Enabled"
+                    description: "Enable User/Hostname Module"
+                    prefField: "bar.modules.userHostname.enabled"
+
+                    RowLayout {
+                        Rectangle {
+                            width: 1
+                            Layout.fillHeight: true
+                            color: Appearance.m3colors.m3outline
+                        }
+
+                        Repeater {
+                            model: ['Left', 'Center', 'Right']
+
+                            delegate: StyledButton {
+                                property string posValue: modelData.toLowerCase()
+
+                                text: modelData
+                                implicitWidth: 80
+                                checked: Shell.flags.bar.modules.userHostname.position === posValue
+                                topLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                topRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                onClicked: Shell.setNestedValue("bar.modules.userHostname.position", posValue)
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // --- Active Top Level ---
+            ColumnLayout {
+                StyledText {
+                    text: "Active Top Level"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+
+                StyledSwitchOption {
+                    title: "Enabled"
+                    description: "Enable Active Top Level Module"
+                    prefField: "bar.modules.activeTopLevel.enabled"
+
+                    RowLayout {
+                        Rectangle {
+                            width: 1
+                            Layout.fillHeight: true
+                            color: Appearance.m3colors.m3outline
+                        }
+
+                        Repeater {
+                            model: ['Left', 'Center', 'Right']
+
+                            delegate: StyledButton {
+                                property string posValue: modelData.toLowerCase()
+
+                                text: modelData
+                                implicitWidth: 80
+                                checked: Shell.flags.bar.modules.activeTopLevel.position === posValue
+                                topLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                topRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                onClicked: Shell.setNestedValue("bar.modules.activeTopLevel.position", posValue)
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            // --- Clock ---
+            ColumnLayout {
+                StyledText {
+                    text: "Clock"
+                    font.pixelSize: 16
+                    font.bold: true
+                }
+
+                StyledSwitchOption {
+                    title: "Enabled"
+                    description: "Enable Clock Module"
+                    prefField: "bar.modules.clock.enabled"
+
+                    RowLayout {
+                        Rectangle {
+                            width: 1
+                            Layout.fillHeight: true
+                            color: Appearance.m3colors.m3outline
+                        }
+
+                        Repeater {
+                            model: ['Left', 'Center', 'Right']
+
+                            delegate: StyledButton {
+                                property string posValue: modelData.toLowerCase()
+
+                                text: modelData
+                                implicitWidth: 80
+                                checked: Shell.flags.bar.modules.clock.position === posValue
+                                topLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomLeftRadius: (modelData === "Left" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                topRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                bottomRightRadius: (modelData === "Right" || checked) ? Appearance.rounding.normal : Appearance.rounding.small
+                                onClicked: Shell.setNestedValue("bar.modules.clock.position", posValue)
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
 }

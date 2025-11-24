@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import qs.widgets
 import qs.functions
 import qs.services
@@ -11,7 +11,7 @@ import QtQuick.Layouts
 BarModule {
     id: mediaContainer
     Layout.alignment: Qt.AlignVCenter
-    Layout.leftMargin: Appearance.margin.large
+
 
     MouseArea {
         anchors.fill: parent 
@@ -29,7 +29,7 @@ BarModule {
     Rectangle {
         id: bgRect
         color: Appearance.m3colors.m3paddingContainer
-        radius: Appearance.rounding.normal
+        radius: Shell.flags.bar.moduleRadius
 
         implicitWidth: textItem.implicitWidth + Appearance.margin.large
         implicitHeight: textItem.implicitHeight + Appearance.margin.small
@@ -37,7 +37,7 @@ BarModule {
         StyledText {
             id: textItem
             animate: true
-            text: Stringify.shortText(activeToplevel?.title || `Workspace ${Hyprland.focusedWorkspaceId}`)
+            text: Stringify.shortText(activeToplevel?.title || `Workspace ${Hyprland.focusedWorkspaceId}`, 18)
             anchors.centerIn: parent
         }
 

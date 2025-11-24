@@ -1,3 +1,6 @@
+import qs.widgets 
+import qs.services
+import qs.settings
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
@@ -5,9 +8,6 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.Notifications
 import Quickshell.Wayland
-import qs.widgets 
-import qs.services
-import qs.config
 
 Scope {
     id: root
@@ -76,7 +76,7 @@ Scope {
 
             Repeater {
                 id: rep
-                model:(!Config.options.misc.dndEnabled && Config.options.misc.notificationDaemonEnabled) ? NotifServer.popups : []
+                model:(!Shell.flags.misc.dndEnabled && Shell.flags.misc.notificationDaemonEnabled) ? NotifServer.popups : []
 
                 NotificationChild {
                     id: child

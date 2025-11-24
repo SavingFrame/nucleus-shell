@@ -1,4 +1,4 @@
-import qs.config
+import qs.settings
 import QtQuick
 import Quickshell
 import Quickshell.Io 
@@ -11,13 +11,13 @@ Scope {
         target: "global"
         function toggleTheme() {
             // Get the current theme
-            const currentTheme = Config.options.appearance.theme
+            const currentTheme = Shell.flags.appearance.theme
 
             // Determine the new theme
             const newTheme = currentTheme === "light" ? "dark" : "light"
 
             // Set the new theme
-            Config.setNestedValue("appearance.theme", newTheme)
+            Shell.setNestedValue("appearance.theme", newTheme)
 
             genThemeColors.running = true
 
@@ -32,10 +32,10 @@ Scope {
         id: genThemeColors
         command: [
             "bash", "-c",
-            "~/.config/quickshell/bin/background/gencolors.sh " +
-            Config.options.background.wallpaperPath + " " +
-            Config.options.global.colorScheme + " " +
-            Config.options.appearance.theme
+            "~/.local/share/aelyx/scripts/background/gencolors.sh " +
+            Shell.flags.background.wallpaperPath + " " +
+            Shell.flags.appearance.colorScheme + " " +
+            Shell.flags.appearance.theme
         ]
     }
 
