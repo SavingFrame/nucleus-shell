@@ -13,6 +13,7 @@ packages=(
     "wf-recorder"
     "grim"
     "slurp"
+    "ttf-jetbrains-mono"
     "nvim"
     "nmcli"
     "nmtui"
