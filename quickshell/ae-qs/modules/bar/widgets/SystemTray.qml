@@ -13,7 +13,7 @@ BarModule {
 
     clip: true
     implicitWidth: padding.width
-    visible: items.count > 0 && Shell.flags.bar.modules.systemTray.enabled
+    visible: items.count > 0
     implicitHeight: padding.height
 
     Rectangle {
