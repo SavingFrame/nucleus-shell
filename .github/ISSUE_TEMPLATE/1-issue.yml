@@ -1,6 +1,6 @@
 name: Issue # Note: I've copied this template from github.com/end-4/dots-hyprland
 description: for reporting any issue
-labels: ["ISSUE"]
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
