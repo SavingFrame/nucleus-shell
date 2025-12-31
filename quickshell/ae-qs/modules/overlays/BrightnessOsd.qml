@@ -31,8 +31,9 @@ Scope {
     LazyLoader {
         active: root.shouldShowOsd
 
-        PanelWindow {
+        StaticWindow {
             visible: GlobalStates.osdNeeded
+            namespace: "aelyx:brightnessOsd"
             exclusiveZone: 0
 			anchors.top: Shell.flags.bar.atTop
 			margins.top: Shell.flags.bar.atTop ? 10 : 0

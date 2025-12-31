@@ -11,9 +11,9 @@ import qs.services
 import qs.settings
 import qs.widgets
 
-PanelWindow {
+StaticWindow {
     id: powerMenu
-
+    namespace: "aelyx:powermenu"
     property var monitor: Hyprland.focusedMonitor
     property real screenW: monitor ? monitor.width : 0
     property real screenH: monitor ? monitor.height : 0

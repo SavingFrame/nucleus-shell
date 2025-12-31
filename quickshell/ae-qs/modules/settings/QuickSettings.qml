@@ -101,21 +101,22 @@ ContentMenu {
                 spacing: 8
 
                 Repeater {
-                    model: ['Top', 'Bottom']
+                    model: ["Top", "Bottom", "Left", "Right"]
 
                     delegate: StyledButton {
-                        property bool isTop: modelData.toLowerCase() === "top"
+                        property string pos: modelData.toLowerCase()
 
                         text: modelData
                         implicitWidth: 0
-                        Layout.fillWidth: true // make both buttons full width
-                        checked: Shell.flags.bar.atTop === isTop
-                        // Rounded corners for visual consistency
-                        topLeftRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
-                        bottomLeftRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
-                        topRightRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
-                        bottomRightRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
-                        onClicked: Shell.setNestedValue("bar.atTop", isTop)
+                        Layout.fillWidth: true
+                        // checked when this button matches current bar position
+                        checked: Shell.flags.bar.position === pos
+                        // keep rounding consistent (no conditional needed here)
+                        topLeftRadius: Appearance.rounding.normal
+                        topRightRadius: Appearance.rounding.normal
+                        bottomLeftRadius: Appearance.rounding.normal
+                        bottomRightRadius: Appearance.rounding.normal
+                        onClicked: Shell.setNestedValue("bar.position", pos)
                     }
 
                 }
@@ -137,32 +138,24 @@ ContentMenu {
                     text: "Cozy"
                     implicitWidth: 0
                     Layout.fillWidth: true
-                    checked: Shell.flags.bar.height === 60
-                    onClicked: Shell.setNestedValue("bar.height", 60)
+                    checked: Shell.flags.bar.density === 60
+                    onClicked: Shell.setNestedValue("bar.density", 60)
                 }
 
                 StyledButton {
                     text: "Comfortable"
                     implicitWidth: 0
                     Layout.fillWidth: true
-                    checked: Shell.flags.bar.height === 50
-                    onClicked: Shell.setNestedValue("bar.height", 50)
-                }
-
-                StyledButton {
-                    text: "Cocky"
-                    implicitWidth: 0
-                    Layout.fillWidth: true
-                    checked: Shell.flags.bar.height === 45
-                    onClicked: Shell.setNestedValue("bar.height", 45)
+                    checked: Shell.flags.bar.density === 50
+                    onClicked: Shell.setNestedValue("bar.density", 50)
                 }
 
                 StyledButton {
                     text: "Condensed"
                     implicitWidth: 0
                     Layout.fillWidth: true
-                    checked: Shell.flags.bar.height <= 40
-                    onClicked: Shell.setNestedValue("bar.height", 40)
+                    checked: Shell.flags.bar.density <= 40
+                    onClicked: Shell.setNestedValue("bar.density", 45)
                 }
 
             }

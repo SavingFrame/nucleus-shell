@@ -8,7 +8,7 @@ import qs.widgets
 BarModule {
     id: clockContainer
 
-    visible: UPower.batterPresent
+    visible: UPower.batteryPresent
     Layout.alignment: Qt.AlignVCenter
     // Let the layout compute size automatically
     implicitWidth: bgRect.implicitWidth

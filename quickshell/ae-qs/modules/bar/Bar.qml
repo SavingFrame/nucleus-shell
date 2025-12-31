@@ -9,13 +9,16 @@ Scope {
     id: root
 
     GothCorners {
-        visible: Shell.flags.bar.gothCorners && !Shell.flags.bar.floating && !Shell.flags.bar.floatingModules
+        visible: Shell.flags.bar.gothCorners && !Shell.flags.bar.floating && !Shell.flags.bar.floatingModules && Shell.flags.bar.enabled
     }
 
     Variants {
         model: Quickshell.screens
 
+
         StaticWindow {
+            // Pain in the ass to introduce verticalBar
+
             id: barWindow
 
             required property var modelData
@@ -23,13 +26,14 @@ Scope {
             screen: modelData
             namespace: "aelyx:bar"
             visible: Shell.flags.bar.enabled
-            implicitHeight: Shell.flags.bar.height
+            implicitHeight: Shell.ready && (Shell.flags.bar.position === "top" || Shell.flags.bar.position === "bottom") ? Shell.flags.bar.density : 1080
+            implicitWidth: Shell.ready && (Shell.flags.bar.position === "left" || Shell.flags.bar.position === "right") ? Shell.flags.bar.density : 1080
 
             anchors {
-                top: Shell.flags.bar.atTop
-                bottom: !Shell.flags.bar.atTop
-                left: true
-                right: true
+                top: Shell.flags.bar.position === "top" || Shell.flags.bar.position === "left" || Shell.flags.bar.position === "right"
+                bottom: Shell.flags.bar.position === "bottom" || Shell.flags.bar.position === "left" || Shell.flags.bar.position === "right"
+                left: Shell.flags.bar.position === "left" || Shell.flags.bar.position === "top" || Shell.flags.bar.position === "bottom"
+                right: Shell.flags.bar.position === "right" || Shell.flags.bar.position === "top" || Shell.flags.bar.position === "bottom"
             }
 
             margins {

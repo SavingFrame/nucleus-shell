@@ -19,7 +19,7 @@ BarModule {
         radius: Shell.flags.bar.moduleRadius
 
         implicitWidth: Appearance.margin.large
-        implicitHeight: Shell.flags.bar.height
+        implicitHeight: Shell.flags.bar.density
 
         // --- Scroll to change brightness ---
         MouseArea {

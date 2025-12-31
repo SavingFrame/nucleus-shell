@@ -122,6 +122,7 @@ Singleton {
             }
 
             property JsonObject bar: JsonObject {
+                property string position: "top"
                 property bool atTop: true
                 property bool floating: true
                 property bool gothCorners: true
@@ -129,7 +130,7 @@ Singleton {
                 property int radius: Appearance.rounding.normal
                 property int moduleRadius: Appearance.rounding.normal
                 property int islandRadius: Appearance.rounding.large
-                property int height: 50
+                property int density: 50
                 property int width: 1080
             }
         }

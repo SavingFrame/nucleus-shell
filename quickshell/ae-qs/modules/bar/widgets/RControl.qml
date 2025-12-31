@@ -25,7 +25,7 @@ BarModule {
         radius: Shell.flags.bar.moduleRadius
 
         implicitWidth: Appearance.margin.large
-        implicitHeight: Shell.flags.bar.height
+        implicitHeight: Shell.flags.bar.density
 
         property real volume: (Pipewire.defaultAudioSink?.audio.volume ?? 0)
 

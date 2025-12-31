@@ -11,8 +11,9 @@ import QtQuick.Controls
 import Quickshell.Services.Pipewire
 import Qt5Compat.GraphicalEffects
 
-PanelWindow {
+StaticWindow {
     id: sidebarRight
+    namespace: "aelyx:sidebarleft"
     WlrLayershell.layer: WlrLayer.Top
     visible: Shell.ready && GlobalStates.sidebarRightOpen
 

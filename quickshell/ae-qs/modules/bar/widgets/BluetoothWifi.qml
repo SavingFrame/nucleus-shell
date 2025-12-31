@@ -1,17 +1,16 @@
-import qs.settings
+import QtQuick
+import QtQuick.Layouts
 import qs.modules.bar
+import qs.settings
 import qs.widgets
 import qs.services
-import QtQuick
 import Quickshell
 import Quickshell.Bluetooth
-import QtQuick.Layouts
 
 BarModule {
     id: root
     Layout.alignment: Qt.AlignVCenter
 
-    // let layout compute size
     implicitWidth: bgRect.implicitWidth
     implicitHeight: bgRect.implicitHeight
 
@@ -28,22 +27,13 @@ BarModule {
             anchors.centerIn: parent
             spacing: 14
 
-            // --- Network --- /
             MaterialSymbol {
                 id: wifi
-                icon: {
-                    const s = Network.signalStrength;
-                    if (s > 80)
-                        return "network_wifi_3_bar";
-                    if (s > 60)
-                        return "network_wifi_2_bar";
-                    if (s > 40)
-                        return "network_wifi_1_bar";
-                    return "network_wifi_1_bar";
-                }
-                iconSize: Appearance.font.size.huge 
+                icon: Network.signalStrength > 80 ? "network_wifi_3_bar" :
+                      Network.signalStrength > 60 ? "network_wifi_2_bar" :
+                      Network.signalStrength > 40 ? "network_wifi_1_bar" : "network_wifi_1_bar"
+                iconSize: Appearance.font.size.huge
             }
-            // --- Bluetooth ---
 
             MaterialSymbol {
                 id: btIcon
@@ -54,13 +44,10 @@ BarModule {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                GlobalStates.sidebarRightOpen = !GlobalStates.sidebarRightOpen
-            }
+            onClicked: GlobalStates.sidebarRightOpen = !GlobalStates.sidebarRightOpen
         }
     }
 
-    // --- Bluetooth status updates ---
     Timer {
         interval: 5000
         running: true

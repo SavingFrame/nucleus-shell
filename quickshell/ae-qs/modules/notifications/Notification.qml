@@ -14,7 +14,7 @@ Scope {
 
     property int innerSpacing: 10
 
-    PanelWindow {
+    StaticWindow {
         id: window
 
         implicitWidth: 540 + 20
@@ -22,6 +22,7 @@ Scope {
         color: "transparent"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.exclusionMode: ExclusionMode.Normal
+        namespace: "aelyx:notification"
 
         anchors {
             top: true

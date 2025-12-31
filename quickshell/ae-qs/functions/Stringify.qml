@@ -9,5 +9,9 @@ Singleton {
             return ""
         return str.length > len ? str.slice(0, len) + "" : str
     }
+
+    function verticalize(text) {
+        return text.split("").join("\n")
+    }
     
 }

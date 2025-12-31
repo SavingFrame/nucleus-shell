@@ -28,21 +28,22 @@ ContentMenu {
                 spacing: 8
 
                 Repeater {
-                    model: ['Top', 'Bottom']
+                    model: ["Top", "Bottom", "Left", "Right"]
 
                     delegate: StyledButton {
-                        property bool isTop: modelData.toLowerCase() === "top"
+                        property string pos: modelData.toLowerCase()
 
                         text: modelData
                         implicitWidth: 0
-                        Layout.fillWidth: true // make both buttons full width
-                        checked: Shell.flags.bar.atTop === isTop
-                        // Rounded corners for visual consistency
-                        topLeftRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
-                        bottomLeftRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
-                        topRightRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
-                        bottomRightRadius: isTop ? Appearance.rounding.normal : Appearance.rounding.normal
-                        onClicked: Shell.setNestedValue("bar.atTop", isTop)
+                        Layout.fillWidth: true
+                        // checked when this button matches current bar position
+                        checked: Shell.flags.bar.position === pos
+                        // keep rounding consistent (no conditional needed here)
+                        topLeftRadius: Appearance.rounding.normal
+                        topRightRadius: Appearance.rounding.normal
+                        bottomLeftRadius: Appearance.rounding.normal
+                        bottomRightRadius: Appearance.rounding.normal
+                        onClicked: Shell.setNestedValue("bar.position", pos)
                     }
 
                 }
@@ -68,7 +69,6 @@ ContentMenu {
             description: "Enable or disable Goth Corners."
             prefField: "bar.gothCorners"
         }
-
 
     }
 

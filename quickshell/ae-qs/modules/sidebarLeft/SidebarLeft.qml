@@ -12,9 +12,9 @@ import qs.services
 import qs.settings
 import qs.widgets
 
-PanelWindow {
+StaticWindow {
     id: sidebarLeft
-
+    namespace: "aelyx:sidebarleft"
     // --- Directly use Hyprland's focused monitor ---
     property var monitor: Hyprland.focusedMonitor
     property real sidebarLeftWidth: 500
