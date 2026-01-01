@@ -12,4 +12,4 @@ figlet "ae-qs"
 echo -e "${RESET}"
 
 bash "$ROOT_DIR/pkg.sh"
-bash "$ROOT_DIR/dotfile.sh"
+bash "$ROOT_DIR/files.sh"

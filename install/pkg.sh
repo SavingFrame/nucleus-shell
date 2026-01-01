@@ -35,7 +35,7 @@ exists() {
 }
 
 installed() {
-    pacman -Qs "$1" &>/dev/null
+    pacman -Qq "$1" &>/dev/null
 }
 
 if ! confirm "install dependencies?"; then

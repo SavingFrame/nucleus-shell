@@ -7,7 +7,7 @@ BLUE="\033[34m"
 GRAY="\033[90m"
 RESET="\033[0m"
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="../"
 SYSTEM_DIR="$ROOT_DIR/system"
 
 confirm() {
