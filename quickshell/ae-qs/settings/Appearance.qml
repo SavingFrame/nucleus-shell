@@ -140,6 +140,8 @@ Singleton {
 
     animation: QtObject {
 
+        property var easing: Easing.OutExpo
+
         property QtObject durations: QtObject {
             property int supershort: 100
             property int small: 200
