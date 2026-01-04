@@ -111,12 +111,20 @@ ContentMenu {
             maximum: 128
         }
 
+
+    }
+
+    ContentCard {
         StyledText {
-            text: "Module Config Values"
+            text: "Bar Modules"
             font.pixelSize: 20
             font.bold: true
-        }
-
+        }     
+        StyledText {
+            text: "Workspaces"
+            font.pixelSize: 16
+            font.bold: true
+        }     
         NumberStepper {
             label: "Workspace Indicators"
             description: "Adjust the workspace indicators on the workspace module."
@@ -124,7 +132,11 @@ ContentMenu {
             minimum: 1
             maximum: 10
         }
-
+        StyledSwitchOption {
+            title: "Show App Icons"
+            description: "Enable or disable app icons as workspace indicators."
+            prefField: "bar.modules.workspaces.showAppIcons"
+        }
     }
 
 }

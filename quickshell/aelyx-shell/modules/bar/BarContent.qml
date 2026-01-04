@@ -11,19 +11,19 @@ Item {
 
     property bool isHorizontal: Shell.flags.bar.position === "top" || Shell.flags.bar.position === "bottom"
 
-    Row {
+    RowLayout {
         id: hLeftRow
 
         visible: isHorizontal
         anchors.left: parent.left
         anchors.leftMargin: Shell.flags.bar.density * 0.3
         anchors.verticalCenter: parent.verticalCenter
-        spacing: 16
+        spacing: 8
 
         Glyph {
         }
 
-        ActiveTopLevel {
+        ActiveTopLevel{
         }
 
     }

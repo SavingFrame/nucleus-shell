@@ -44,6 +44,18 @@ Singleton {
         Hyprland.dispatch(request)
     }
 
+    function focusedWindowForWorkspace(workspaceId) {
+        const wsWindows = root.windowList.filter(w => w.workspace.id === workspaceId);
+        if (wsWindows.length === 0) return null;
+
+        // Most recently focused window (lowest focusHistoryID)
+        return wsWindows.reduce((best, win) => {
+            const bestFocus = best?.focusHistoryID ?? Infinity;
+            const winFocus = win?.focusHistoryID ?? Infinity;
+            return winFocus < bestFocus ? win : best;
+        }, null);
+    }
+
     // --- Simple helper ---
     function isWorkspaceOccupied(id: int): bool {
         return Hyprland.workspaces.values.find((w) => {
