@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-CONFIG="$HOME/.config/aelyx-shell/config/settings.json"
-QS_DIR="$HOME/.config/quickshell/aelyx-shell"
-REPO="xZepyx/aelyx-shell"
+CONFIG="$HOME/.config/nucleus-shell/config/settings.json"
+QS_DIR="$HOME/.config/quickshell/nucleus-shell"
+REPO="xZepyx/nucleus-shell"
 API="https://api.github.com/repos/$REPO/releases"
 
 figlet "Updating"
@@ -73,17 +73,17 @@ curl -fL \
 # Extract zip
 unzip -q "$zip" -d "$tmp"
 
-root_dir="$tmp/aelyx-shell-${latest}"
+root_dir="$tmp/nucleus-shell-${latest}"
 
 if [[ ! -d "$root_dir" ]]; then
     echo "failed to locate extracted source directory: $root_dir"
     exit 1
 fi
 
-SRC_DIR="$root_dir/quickshell/aelyx-shell"
+SRC_DIR="$root_dir/quickshell/nucleus-shell"
 
 if [[ ! -d "$SRC_DIR" ]]; then
-    echo "aelyx-shell folder not found in source archive"
+    echo "nucleus-shell folder not found in source archive"
     exit 1
 fi
 
@@ -98,6 +98,6 @@ jq --arg v "$latest" '.shellInfo.version = $v' "$CONFIG" > "$tmp_cfg"
 mv "$tmp_cfg" "$CONFIG"
 
 # Reload system
-nohup killall qs; qs -c aelyx-shell > /dev/null 2>&1 & disown
+nohup killall qs; qs -c nucleus-shell > /dev/null 2>&1 & disown
 
 echo "Updated $current -> $latest"
