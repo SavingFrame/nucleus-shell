@@ -33,8 +33,6 @@ run_cmd() {
     fi
 }
 
-mkdir -p ~/.config ~/.local/share/aelyx
-
 echo "select what to copy"
 
 copy_all=false
