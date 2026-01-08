@@ -1,4 +1,4 @@
-# Collaborator Workflow
+# Collaborating Workflow
 
 This section describes **how collaborators should work on this repository**.
 
