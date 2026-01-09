@@ -10,6 +10,7 @@ import qs.modules.interface.notifications
 import qs.modules.interface.overlays
 import qs.modules.interface.sidebarRight
 import qs.modules.interface.settings
+import qs.modules.interface.lockscreen
 
 ShellRoot {
     id: shellroot 
@@ -33,5 +34,7 @@ ShellRoot {
     Settings { }
 
     Ipc { }
+
+    LockScreen { }
 
 }
