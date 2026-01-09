@@ -27,7 +27,7 @@ Scope {
     Process {
         id: genThemeColors
 
-        command: Config.runtime.appearance.colors.runMatugenUserWide ? ["bash", Directories.scriptsPath + "/interface/gencolors.sh", "--user-wide", Config.runtime.appearance.background.path, Config.runtime.appearance.colors.scheme, Config.runtime.appearance.theme] : ["bash", Directories.scriptsPath + "/interface/gencolors.sh", Config.runtime.appearance.background.path, Config.runtime.appearance.colors.scheme, Config.runtime.appearance.theme, Quickshell.shellPath("extras/matugen/config.toml")]
+        command: ["bash", Directories.scriptsPath + "/interface/gencolors.sh", Config.runtime.appearance.background.path, Config.runtime.appearance.colors.scheme, Config.runtime.appearance.theme, Quickshell.shellPath("extras/matugen/config.toml")]
     }
 
 }

@@ -215,16 +215,45 @@ ContentMenu {
             prefField: "appearance.background.slideshow.includeSubfolders"
         }
 
-        // Next wallpaper button
+
+        RowLayout {
+            id: skipWallpaper
+
+            property string title: "Skip To Next Wallpaper"
+            property string description: "Skip to the next wallpaper in the wallpaper directory."
+            property string prefField: ''
+
+            ColumnLayout {
+                StyledText {
+                    text: skipWallpaper.title
+                    font.pixelSize: 16
+                }
+
+                StyledText {
+                    text: skipWallpaper.description
+                    font.pixelSize: 12
+                }
+
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
         StyledButton {
             icon: "skip_next"
             text: "Next Wallpaper"
-            Layout.fillWidth: true
             enabled: WallpaperSlideshow.wallpapers.length > 0
             onClicked: {
                 Quickshell.execDetached(["qs", "-c", "nucleus-shell", "ipc", "call", "background", "next"]);
+                Quickshell.execDetached(["qs", "-c", "nucleus-shell", "ipc", "call", "global", "regenColors"]);
             }
         }
+
+        }
+
+        // Next wallpaper button
+
     }
 
     // Folder picker process

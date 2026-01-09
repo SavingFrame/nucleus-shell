@@ -37,11 +37,13 @@ if [[ "$WALLPAPER_PATH" == file://* ]]; then
     WALLPAPER_PATH="${WALLPAPER_PATH#file://}"
 fi
 
-# Always require config unless explicitly user-wide?
-if [[ ! -f "$CONFIG_PATH" ]]; then
-    echo "Error: config file not found: $CONFIG_PATH" >&2
-    exit 1
+if ! $USER_WIDE; then
+    if [[ -z "$CONFIG_PATH" || ! -f "$CONFIG_PATH" ]]; then
+        echo "Error: config file not found: $CONFIG_PATH" >&2
+        exit 1
+    fi
 fi
+
 
 run_with_config() {
     matugen --config "$CONFIG_PATH" \

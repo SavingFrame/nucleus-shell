@@ -118,12 +118,6 @@ ContentMenu {
                 prefField: "appearance.tintIcons"
             }
 
-            StyledSwitchOption {
-                title: "User Wide Color Generation"
-                description: "Run matugen user wide or shell wide."
-                prefField: "appearance.colors.runMatugenUserWide"
-            }
-
         }
 
     }

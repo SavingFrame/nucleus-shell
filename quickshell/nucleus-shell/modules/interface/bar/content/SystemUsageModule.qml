@@ -55,7 +55,7 @@ Item {
         }
 
         StyledText {
-            visible: Config.runtime.bar.modules.systemUsage.memeoryStatsEnabled && isHorizontal
+            visible: Config.runtime.bar.modules.systemUsage.memoryStatsEnabled && isHorizontal
             animate: false
             text: Math.round(SystemDetails.ramPercent * 100) + "%"
         }
