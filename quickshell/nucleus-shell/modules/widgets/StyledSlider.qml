@@ -10,7 +10,7 @@ Slider {
     property real trackHeightDiff: 15
     property real handleGap: 6
     property real trackDotSize: 4
-    property real trackNearHandleRadius: 2
+    property real trackNearHandleRadius: Appearance.rounding.unsharpen
     property bool useAnim: true
     property int iconSize: Appearance.font.size.large 
     property string icon: ""
@@ -58,7 +58,7 @@ Slider {
 
             height: root.height - root.trackHeightDiff
             color: Appearance.colors.colPrimary
-            radius: 10
+            radius: Appearance.rounding.small
             topRightRadius: root.trackNearHandleRadius
             bottomRightRadius: root.trackNearHandleRadius
 
@@ -81,7 +81,7 @@ Slider {
 
             height: root.height - root.trackHeightDiff
             color: Appearance.colors.colSecondaryContainer
-            radius: 10
+            radius: Appearance.rounding.small
             topLeftRadius: root.trackNearHandleRadius
             bottomLeftRadius: root.trackNearHandleRadius
 
@@ -99,7 +99,7 @@ Slider {
     handle: Rectangle {
         width: 5
         height: root.height
-        radius: width / 2
+        radius: (width / 2) * Config.runtime.appearance.rounding.factor
 
         x: root.handleGap + (root.visualPosition * (root.width - root.handleGap * 2)) - width / 2
         anchors.verticalCenter: parent.verticalCenter
