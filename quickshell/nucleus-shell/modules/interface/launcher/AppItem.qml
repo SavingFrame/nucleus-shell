@@ -9,6 +9,7 @@ import QtQuick.Controls
 
 import qs.config
 import qs.modules.components
+import qs.modules.functions
 
 StyledRect {
     id: root
@@ -88,7 +89,7 @@ StyledRect {
 
         StyledText {
             font.weight: 400
-            text: modelData.comment
+            text: StringUtils.shortText(modelData.comment, 65) // Limit maximum chars to 65
             font.pixelSize: Metrics.fontSize(12)
             color: {
                 if (root.hovered || root.selected)
