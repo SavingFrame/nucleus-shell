@@ -21,10 +21,9 @@ PanelWindow {
     exclusiveZone: 0
     WlrLayershell.keyboardFocus: Compositor.require("niri") && Globals.visiblility.sidebarRight
     
-    property var monitor: Hyprland.focusedMonitor
     property real sidebarRightWidth: 500
 
-    implicitWidth: monitor ? monitor.width : 1920
+    implicitWidth: Compositor.screenW
 
     HyprlandFocusGrab {
         id: grab
@@ -99,13 +98,6 @@ PanelWindow {
         target: "sidebarRight"
         function toggle() {
             togglesidebarRight()
-        }
-    }
-
-    Connections {
-        target: Hyprland
-        function onFocusedMonitorChanged() {
-            sidebarRight.monitor = Hyprland.focusedMonitor
         }
     }
 }
