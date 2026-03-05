@@ -75,7 +75,7 @@ Singleton {
         "ubuntu": "",
         "vanilla": "",
         "void": "",
-        "zorin": ""
+        "zorin": "",
         "opensuse": "",
 
     })
